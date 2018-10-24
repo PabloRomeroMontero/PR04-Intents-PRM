@@ -20,7 +20,7 @@ import es.iessaladillo.pedrojoya.pr04.utils.ResourcesUtils;
 import static es.iessaladillo.pedrojoya.pr04.data.local.Database.getInstance;
 
 public class AvatarActivity extends AppCompatActivity {
-    public static final String AVATAR = "AVATAR";
+    public static final String AVATAR = "EXTRA_AVATAR";
     private List<Avatar> listCat;
     private Avatar avatarIntent;
     private ImageView imgAvatar1;
