@@ -7,7 +7,6 @@ import java.util.Random;
 import es.iessaladillo.pedrojoya.pr04.R;
 import es.iessaladillo.pedrojoya.pr04.data.local.model.Avatar;
 
-// DO NOT TOUCH
 
 public class Database {
 
