@@ -97,7 +97,8 @@ public class MainActivityTest {
 
     @Test
     public void shouldAddressBeBoldTypefaceWhenFocus() {
-        onView(withId(R.id.lblAddress)).perform(click(), closeSoftKeyboard());
+        // CREO QUE CAMBIASTE POR ERROR txtAddress POR lblAddress Y NO PASABA POR TANTO EL TEST.
+        onView(withId(R.id.txtAddress)).perform(click(), closeSoftKeyboard());
         onView(withId(R.id.lblAddress)).check(
                 matches(withBoldTypeface(Typeface.DEFAULT_BOLD.isBold())));
     }
@@ -134,7 +135,8 @@ public class MainActivityTest {
 
     @Test
     public void shouldAddressLabelBeDefaultTypefaceWhenNoFocus() {
-        onView(withId(R.id.lblAddress)).perform(click(), closeSoftKeyboard());
+        // CREO QUE CAMBIASTE POR ERROR txtAddress POR lblAddress Y NO PASABA POR TANTO EL TEST.
+        onView(withId(R.id.txtAddress)).perform(click(), closeSoftKeyboard());
         onView(withId(R.id.txtEmail)).perform(click(), closeSoftKeyboard());
         onView(withId(R.id.lblAddress)).check(matches(withBoldTypeface(Typeface.DEFAULT.isBold())));
     }
@@ -163,7 +165,8 @@ public class MainActivityTest {
 
     @Test
     public void shouldAddressIconBeDisabledWhenInvalidData() {
-        onView(withId(R.id.lblAddress)).perform(click(), closeSoftKeyboard(), replaceText(""));
+        // CREO QUE CAMBIASTE POR ERROR txtAddress POR lblAddress Y NO PASABA POR TANTO EL TEST.
+        onView(withId(R.id.txtAddress)).perform(click(), closeSoftKeyboard(), replaceText(""));
         onView(withId(R.id.imgAddress)).check(matches(not(isEnabled())));
     }
 
@@ -191,7 +194,8 @@ public class MainActivityTest {
 
     @Test
     public void shouldAddressIconBeEnabledWhenValidData() {
-        onView(withId(R.id.lblAddress)).perform(click(), closeSoftKeyboard(), replaceText("test"));
+        // CREO QUE CAMBIASTE POR ERROR txtAddress POR lblAddress Y NO PASABA POR TANTO EL TEST.
+        onView(withId(R.id.txtAddress)).perform(click(), closeSoftKeyboard(), replaceText("test"));
         onView(withId(R.id.imgAddress)).check(matches(isEnabled()));
     }
 
@@ -227,8 +231,9 @@ public class MainActivityTest {
 
     @Test
     public void shouldAddressEditTextShowErrorWhenInvalidData() {
-        onView(withId(R.id.lblAddress)).perform(click(), closeSoftKeyboard(), replaceText(""));
-        onView(withId(R.id.lblAddress)).check(matches(hasErrorText(
+        // CREO QUE CAMBIASTE POR ERROR txtAddress POR lblAddress Y NO PASABA POR TANTO EL TEST.
+        onView(withId(R.id.txtAddress)).perform(click(), closeSoftKeyboard(), replaceText(""));
+        onView(withId(R.id.txtAddress)).check(matches(hasErrorText(
                 testRule.getActivity().getString(R.string.main_invalid_data))));
     }
 
@@ -263,8 +268,9 @@ public class MainActivityTest {
 
     @Test
     public void shouldAddressEditTextShowNoErrorWhenValidData() {
-        onView(withId(R.id.lblAddress)).perform(click(), closeSoftKeyboard(), replaceText("test"));
-        onView(withId(R.id.lblAddress)).check(matches(hasErrorText(isEmptyOrNullString())));
+        // CREO QUE CAMBIASTE POR ERROR txtAddress POR lblAddress Y NO PASABA POR TANTO EL TEST.
+        onView(withId(R.id.txtAddress)).perform(click(), closeSoftKeyboard(), replaceText("test"));
+        onView(withId(R.id.txtAddress)).check(matches(hasErrorText(isEmptyOrNullString())));
     }
 
     @Test
@@ -311,7 +317,8 @@ public class MainActivityTest {
                 testRule.getActivity().getString(R.string.main_invalid_data))));
         onView(withId(R.id.txtPhonenumber)).check(matches(hasErrorText(
                 testRule.getActivity().getString(R.string.main_invalid_data))));
-        onView(withId(R.id.lblAddress)).check(matches(hasErrorText(
+        // CREO QUE CAMBIASTE POR ERROR txtAddress POR lblAddress Y NO PASABA POR TANTO EL TEST.
+        onView(withId(R.id.txtAddress)).check(matches(hasErrorText(
                 testRule.getActivity().getString(R.string.main_invalid_data))));
         onView(withId(R.id.txtWeb)).check(matches(hasErrorText(
                 testRule.getActivity().getString(R.string.main_invalid_data))));
@@ -326,7 +333,8 @@ public class MainActivityTest {
                 closeSoftKeyboard());
         onView(withId(R.id.txtPhonenumber)).perform(click(), replaceText("666666666"),
                 closeSoftKeyboard());
-        onView(withId(R.id.lblAddress)).perform(click(), replaceText("test"),
+        // CREO QUE CAMBIASTE POR ERROR txtAddress POR lblAddress Y NO PASABA POR TANTO EL TEST.
+        onView(withId(R.id.txtAddress)).perform(click(), replaceText("test"),
                 closeSoftKeyboard());
         onView(withId(R.id.txtWeb)).perform(click(), replaceText("http://www.test.com"),
                 closeSoftKeyboard());
@@ -353,12 +361,14 @@ public class MainActivityTest {
     public void shouldPhonenumberEditTextGoForwardWhenImeOptionsClicked() {
         onView(withId(R.id.txtPhonenumber)).perform(click(), typeText("66666666"),
                 pressImeActionButton());
-        onView(withId(R.id.lblAddress)).check(matches(hasFocus()));
+        // CREO QUE CAMBIASTE POR ERROR txtAddress POR lblAddress Y NO PASABA POR TANTO EL TEST.
+        onView(withId(R.id.txtAddress)).check(matches(hasFocus()));
     }
 
     @Test
     public void shouldAddressEditTextGoForwardWhenImeOptionsClicked() {
-        onView(withId(R.id.lblAddress)).perform(click(), typeText("test"), pressImeActionButton());
+        // CREO QUE CAMBIASTE POR ERROR txtAddress POR lblAddress Y NO PASABA POR TANTO EL TEST.
+        onView(withId(R.id.txtAddress)).perform(click(), typeText("test"), pressImeActionButton());
         onView(withId(R.id.txtWeb)).perform(closeSoftKeyboard()).check(matches(hasFocus()));
     }
 
@@ -388,7 +398,8 @@ public class MainActivityTest {
 
     @Test
     public void shouldAddressSendIntent() {
-        onView(withId(R.id.lblAddress)).perform(typeText("Avda. Duque de Rivas"),
+        // CREO QUE CAMBIASTE POR ERROR txtAddress POR lblAddress Y NO PASABA POR TANTO EL TEST.
+        onView(withId(R.id.txtAddress)).perform(typeText("Avda. Duque de Rivas"),
                 closeSoftKeyboard());
         onView(withId(R.id.imgAddress)).perform(click());
         intended(Matchers.allOf(hasAction(Intent.ACTION_VIEW), hasData("geo:0,0?q=Avda. Duque de Rivas")));
