@@ -1,7 +1,6 @@
 package es.iessaladillo.pedrojoya.pr04.ui.main;
 
 import android.app.SearchManager;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,13 +9,11 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -84,20 +81,23 @@ public class MainActivity extends AppCompatActivity {
         changeAvatar(avatar);
 
         imgWeb.setOnClickListener(v -> {
+            // LA ACCIÓN QUE SE ESTABLECÍA EN EL TEST ERA ACTION_VIEW Y POR ESO
+            // NO TE PASA EL TEST.
             Intent intent = new Intent(Intent.ACTION_WEB_SEARCH)
                     .putExtra(SearchManager.QUERY, txtWeb.getText().toString());
 
 
-            if (validateWhitIcon(txtWeb, imgWeb, lblWeb, ValidationUtils.isValidUrl(txtWeb.getText().toString()))
+            if (validateWithIcon(txtWeb, imgWeb, lblWeb, ValidationUtils.isValidUrl(txtWeb.getText().toString()))
                     && isAvailable(this, intent))
                 startActivity(intent);
 
 
         });
         imgAddress.setOnClickListener(v -> {
+            // DEBERÍAS COMPRAR QUE HAY DATOS ANTES DE ENVIAR EL INTENT
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + txtAddress.getText().toString()));
 
-            if (validateWhitIcon(txtAddress, imgAddress, lblAddress, !TextUtils.isEmpty(txtAddress.getText()))
+            if (validateWithIcon(txtAddress, imgAddress, lblAddress, !TextUtils.isEmpty(txtAddress.getText()))
                     && isAvailable(this, intent))
                 startActivity(intent);
 
@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + txtPhonenumber.getText().toString()));
 
-            if (validateWhitIcon(txtPhonenumber, imgPhoneNumber, lblPhoneNumber,
+            // SE ESCRIBRE With NO Whit
+            if (validateWithIcon(txtPhonenumber, imgPhoneNumber, lblPhoneNumber,
                     ValidationUtils.isValidPhone(txtPhonenumber.getText().toString())) &&
                     isAvailable(this, intent))
                 startActivity(intent);
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_SENDTO)
                     .setData(Uri.parse("mailto:" + txtEmail.getText().toString()));
 
-            if (validateWhitIcon(txtEmail, imgEmail, lblEmail, ValidationUtils.isValidEmail(txtEmail.getText().toString()))
+            if (validateWithIcon(txtEmail, imgEmail, lblEmail, ValidationUtils.isValidEmail(txtEmail.getText().toString()))
                     && isAvailable(this, intent))
                 startActivity(intent);
 
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         txtAddress.setOnFocusChangeListener((v, hasFocus) -> {
+            // ESTE CÓDIGO LO REPITES VARIAS VECES. HAZ UN MÉTODO.
             if (hasFocus)
                 lblAddress.setTypeface(Typeface.DEFAULT_BOLD);
             else
@@ -168,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateWhitIcon(txtWeb, imgWeb, lblWeb, ValidationUtils.isValidUrl(txtWeb.getText().toString()));
+                validateWithIcon(txtWeb, imgWeb, lblWeb, ValidationUtils.isValidUrl(txtWeb.getText().toString()));
             }
 
             @Override
@@ -182,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateWhitoutIcon(txtName, lblName, !TextUtils.isEmpty(txtName.getText()));
+                validateWithoutIcon(txtName, lblName, !TextUtils.isEmpty(txtName.getText()));
             }
 
             @Override
@@ -196,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateWhitIcon(txtAddress, imgAddress, lblAddress, !TextUtils.isEmpty(txtAddress.getText()));
+                validateWithIcon(txtAddress, imgAddress, lblAddress, !TextUtils.isEmpty(txtAddress.getText()));
             }
 
             @Override
@@ -210,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateWhitIcon(txtPhonenumber, imgPhoneNumber, lblPhoneNumber, ValidationUtils.isValidPhone(txtPhonenumber.getText().toString()));
+                validateWithIcon(txtPhonenumber, imgPhoneNumber, lblPhoneNumber, ValidationUtils.isValidPhone(txtPhonenumber.getText().toString()));
             }
 
             @Override
@@ -224,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateWhitIcon(txtEmail, imgEmail, lblEmail, ValidationUtils.isValidEmail(txtEmail.getText().toString()));
+                validateWithIcon(txtEmail, imgEmail, lblEmail, ValidationUtils.isValidEmail(txtEmail.getText().toString()));
             }
 
             @Override
@@ -249,6 +251,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // ESTE MÉTODO LLÉVATELO MEJOR A UNA CLASE DE UTILIDAD QUE USES EN TODOS TUS
+    // PROYECTOS.
     private static boolean isAvailable(Context ctx, Intent intent) {
         final PackageManager packageManager = ctx.getPackageManager();
         List<ResolveInfo> appList =
@@ -257,7 +261,9 @@ public class MainActivity extends AppCompatActivity {
         return appList.size() > 0;
     }
 
-    private boolean validateWhitoutIcon(EditText editText, TextView textView, boolean validate) {
+    // EL MÉTODO WITH Y EL MÉTODO WITHOUT SON PRÁCTICAMENTE IGUALES.
+    // PODÍAS USAR SIEMPRE EL WITH Y PASAR UN NULL PARA EL ImageView.
+    private boolean validateWithoutIcon(EditText editText, TextView textView, boolean validate) {
 
         if (!validate) {
             textView.setEnabled(false);
@@ -270,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private boolean validateWhitIcon(EditText editText, ImageView imgView, TextView textView,
+    private boolean validateWithIcon(EditText editText, ImageView imgView, TextView textView,
                                      boolean validate) {
         if (!validate) {
             imgView.setEnabled(false);
@@ -287,11 +293,11 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean validateAll() {
         boolean result = false;
-        boolean address = validateWhitIcon(txtAddress, imgAddress, lblAddress, !TextUtils.isEmpty(txtAddress.getText()));
-        boolean email = validateWhitIcon(txtEmail, imgEmail, lblEmail, ValidationUtils.isValidEmail(txtEmail.getText().toString()));
-        boolean name = validateWhitoutIcon(txtName, lblName, !TextUtils.isEmpty(txtName.getText()));
-        boolean phoneNumber = validateWhitIcon(txtPhonenumber, imgPhoneNumber, lblPhoneNumber, ValidationUtils.isValidPhone(txtPhonenumber.getText().toString()));
-        boolean web = validateWhitIcon(txtWeb, imgWeb, lblWeb, ValidationUtils.isValidUrl(txtWeb.getText().toString()));
+        boolean address = validateWithIcon(txtAddress, imgAddress, lblAddress, !TextUtils.isEmpty(txtAddress.getText()));
+        boolean email = validateWithIcon(txtEmail, imgEmail, lblEmail, ValidationUtils.isValidEmail(txtEmail.getText().toString()));
+        boolean name = validateWithoutIcon(txtName, lblName, !TextUtils.isEmpty(txtName.getText()));
+        boolean phoneNumber = validateWithIcon(txtPhonenumber, imgPhoneNumber, lblPhoneNumber, ValidationUtils.isValidPhone(txtPhonenumber.getText().toString()));
+        boolean web = validateWithIcon(txtWeb, imgWeb, lblWeb, ValidationUtils.isValidUrl(txtWeb.getText().toString()));
 
         if (address && name && email && phoneNumber && web) {
             result = true;

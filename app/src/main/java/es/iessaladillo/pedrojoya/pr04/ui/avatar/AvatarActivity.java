@@ -1,10 +1,7 @@
 package es.iessaladillo.pedrojoya.pr04.ui.avatar;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,8 +13,6 @@ import es.iessaladillo.pedrojoya.pr04.R;
 import es.iessaladillo.pedrojoya.pr04.data.local.Database;
 import es.iessaladillo.pedrojoya.pr04.data.local.model.Avatar;
 import es.iessaladillo.pedrojoya.pr04.utils.ResourcesUtils;
-
-import static es.iessaladillo.pedrojoya.pr04.data.local.Database.getInstance;
 
 public class AvatarActivity extends AppCompatActivity {
     public static final String AVATAR = "EXTRA_AVATAR";
@@ -111,6 +106,7 @@ public class AvatarActivity extends AppCompatActivity {
         lblAvatar6.setText(listCat.get(5).getName());
     }
 
+    // MEJOR QUE equals UTILIZA TextUtils.equals(), QUE TAMBIÉN TE COMPRUEBA QUE SEA != null.
     private void checkImgView(Avatar avatar) {
         if (avatar.getName().equals(lblAvatar1.getText())) {
             selectImageView(imgAvatar1);
